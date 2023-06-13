@@ -12,7 +12,7 @@ import { Polygon } from "@thirdweb-dev/chains";
 import styles from "./ApproveButton.module.css";
 
 
-export const ApproveButton = ({
+const ApproveButton = ({
   approvalStatus,
   setApprovalStatus,
   showApproveButton,
