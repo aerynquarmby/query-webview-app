@@ -1,0 +1,17 @@
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  padding: 0 5%;
+  text-align: center;
+  color: white;
+}
+
+/* Styles for devices with a maximum width of 600px */
+@media screen and (max-width: 600px) {
+  .message {
+    padding: 0 10%; /* Increase horizontal padding on smaller screens */
+    /* add more styles for mobile here if needed */
+  }
+}

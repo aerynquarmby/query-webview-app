@@ -1,0 +1,30 @@
+{
+    "name": "full_xf",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@thirdweb-dev/react": "^3.12.3",
+        "@thirdweb-dev/sdk": "^3.10.18",
+        "@web3-react/core": "^8.2.0",
+        "ethers": "^5.7.2",
+        "next": "^13.2.4",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "react-icons": "^4.9.0",
+        "react-router-dom": "^6.2.1"
+    },
+    "devDependencies": {
+        "@types/node": "17.0.41",
+        "@types/react": "^18.0.28",
+        "@types/react-dom": "^18.0.11",
+        "eslint": "8.17.0",
+        "eslint-config-next": "13.2.4",
+        "typescript": "4.7.3"
+    },
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build && next export -o build/",
+        "start": "next start",
+        "lint": "next lint"
+    }
+}

@@ -1,0 +1,15 @@
+
+.connectedButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 10px;
+  font-size: 13px;
+  color: rgb(49, 48, 48);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
