@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 import { Polygon } from "@thirdweb-dev/chains";
 import styles from "./ApproveButton.module.css";
 
-
 const ApproveButton = ({
   approvalStatus,
   setApprovalStatus,
@@ -90,7 +89,7 @@ const ApproveButton = ({
     }
   };
 
-  if (!approvalStatus.isApproved && showApproveButton) {
+  if ((!approvalStatus?.isApproved||true) && showApproveButton) {
     return (
       <button
         onClick={() => {
@@ -103,7 +102,9 @@ const ApproveButton = ({
       </button>
     );
   }
-  return null;
+  return (
+    <div></div>
+  );
 };
 
 export default ApproveButton;

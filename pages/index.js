@@ -4,7 +4,7 @@ import CustomConnectButton from "./CustomConnectButton";
 import styles from "./index.module.css";
 import WalletConnectionStatus from './WalletConnectionStatus';
 import Approval from './Approval';
-import { ApproveButton } from "./ApproveButton";
+import ApproveButton from "./ApproveButton";
 
 const FullXF = () => {
   const [approvalStatus, setApprovalStatus] = useState({ isApproved: false, isError: false });
