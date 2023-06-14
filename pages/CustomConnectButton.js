@@ -30,7 +30,7 @@ const CustomConnectButton = ({ buttonImage }) => {
 
   return (
     <div>
-      <ConnectWallet>
+      <ConnectWallet autoConnect={false}>
         <button className="custom-connect-button">
           <img src={buttonImage} alt="CustomConnectButton" />
         </button>
