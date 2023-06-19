@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Polygon } from "@thirdweb-dev/chains";
 import styles from "./ApproveButton.module.css";
+import Spinner from "./Spinner";
 
 const ApproveButton = ({
   approvalStatus,
@@ -33,8 +34,7 @@ const ApproveButton = ({
   useEffect(() => {
     if (address === undefined) {
       setShowApproveButton(false);
-    }
-    else{
+    } else {
       setShowApproveButton(true);
     }
   }, [address]);
@@ -42,13 +42,13 @@ const ApproveButton = ({
   const { contract } = useContract(
     "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
   );
-  
+
   const {
     mutateAsync: approve,
     isLoading: isApproving,
     error,
   } = useContractWrite(contract, "approve");
-  
+
   useEffect(() => {
     if (error === null) {
       setApprovalInitiated(false);
@@ -61,9 +61,9 @@ const ApproveButton = ({
     "allowance",
     [address, spender]
   );
-  
-  //const hasApprovalFailure = approvalEvents.some((event) => event.error);
-  const [buttonStatus, setbuttonStatus] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
+
   const callApproval = async () => {
     try {
       if (currentChainId !== Polygon.chainId) {
@@ -73,13 +73,14 @@ const ApproveButton = ({
             await switchChain(Polygon.chainId);
             return;
           } catch (err) {
-            console.log("ERROR", err)
+            console.log("ERROR", err);
             return;
           }
         }
       }
       console.log("checking", address, isChecking, approvalInitiated);
       if (address && !isChecking && !approvalInitiated) {
+        setIsLoading(true);
         if (parseInt(allowance) >= parseInt(amount)) {
           setApprovalStatus(true);
           setShowApproveButton(false);
@@ -100,25 +101,30 @@ const ApproveButton = ({
       }
     } catch (err) {
       console.log("Contract call failure:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
+
   if (showApproveButton) {
-    return (
-      <button
-        onClick={() => {
-          console.log("clicked approval");
-          callApproval();
-        }}
-        className={styles.connectedButton}
-      >
-        Enable USDT
-      </button>
-    );
+    if (isLoading) {
+      return <Spinner />; // Render the Spinner component when isLoading is true
+    } else {
+      return (
+        <button
+          onClick={() => {
+            console.log("clicked approval");
+            callApproval();
+          }}
+          className={styles.connectedButton}
+        >
+          Enable USDT
+        </button>
+      );
+    }
   }
 
-  return (
-    <div></div>
-  );
+  return <div></div>;
 };
 
 export default ApproveButton;
