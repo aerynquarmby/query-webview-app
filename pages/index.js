@@ -8,7 +8,7 @@ import ApproveButton from "./ApproveButton";
 
 const FullXF = () => {
   const [approvalStatus, setApprovalStatus] = useState({ isApproved: false, isError: false });
-  const [showApproveButton, setShowApproveButton] = useState(false);
+  const [showApproveButton, setShowApproveButton] = useState(true);
   const address = useAddress();
 
   return (

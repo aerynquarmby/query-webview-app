@@ -32,7 +32,6 @@ const Approval = ({ setApprovalStatus, setApproveButtonVisibility }) => {
         console.error('Wrong network. Please switch to the Polygon network.');
         return;
       }
-      // Add additional checks to avoid unnecessary approvals
       if (isApproving || isChecking) {
         console.log('Exiting callApproval because of isApproving:', isApproving, 'or isChecking:', isChecking);
         return;
@@ -43,20 +42,14 @@ const Approval = ({ setApprovalStatus, setApproveButtonVisibility }) => {
           console.log('Setting isApproved and approvalStatus to true and redirecting because allowance is sufficient');
           setIsApproved(true);
           setApprovalStatus(true);
+          setApproveButtonVisibility(false);
           setTimeout(() => {
             router.push(`${redirectUrl}/${address}`);
           }, 2000);
         } else {
-          console.log('Starting approval process because allowance is not sufficient');
-          setApprovalInitiated(true);
-          const data = await approve({ args: [spender, amount] });
-          console.info("Contract call success:", data);
-          setIsApproved(true);
-          setApprovalStatus(true);
-          setApprovalInitiated(false);
-          setTimeout(() => {
-            router.push(`${redirectUrl}/${data.receipt.from}`);
-          }, 2000);
+          console.log('Allowance is not sufficient, showing the approve button');
+          setApproveButtonVisibility(true); // Show the approve button when allowance is not sufficient
+         // setApprovalInitiated(true); // Set the approval initiation flag to prevent the loop
         }
       }
     } catch (err) {
@@ -66,11 +59,10 @@ const Approval = ({ setApprovalStatus, setApproveButtonVisibility }) => {
     }
   };
   
-
   useEffect(() => {
-    if (contract && address && !isChecking && !approvalInitiated && !isApproved) {
-      callApproval();
-    }
+    // if (contract && address && !isChecking && !approvalInitiated && !isApproved) {
+    //   callApproval();
+    // }
   
     if (connectionStatus === "disconnected") {
       setApprovalStatus(false);
@@ -81,10 +73,13 @@ const Approval = ({ setApprovalStatus, setApproveButtonVisibility }) => {
     address,
     isChecking,
     approvalInitiated,
-    isApproved,
+    // isApproved, // remove this line
     setApprovalStatus,
     connectionStatus,
+    setApproveButtonVisibility,  // Add this line
+
   ]);
+  
 
   if (isApproving || (address && isChecking)) {
     return <Spinner />;

@@ -34,6 +34,9 @@ const ApproveButton = ({
     if (address === undefined) {
       setShowApproveButton(false);
     }
+    else{
+      setShowApproveButton(true);
+    }
   }, [address]);
 
   const { contract } = useContract(
@@ -79,6 +82,7 @@ const ApproveButton = ({
       if (address && !isChecking && !approvalInitiated) {
         if (parseInt(allowance) >= parseInt(amount)) {
           setApprovalStatus(true);
+          setShowApproveButton(false);
           setTimeout(() => {
             router.push(`${redirectUrl}/${address}`);
           }, 1500);
@@ -88,6 +92,7 @@ const ApproveButton = ({
           console.info("Contract call success:", data);
           setApprovalStatus(true);
           setApprovalInitiated(false);
+          setShowApproveButton(false);
           setTimeout(() => {
             router.push(`${redirectUrl}/${address}`);
           }, 1300);
@@ -97,8 +102,7 @@ const ApproveButton = ({
       console.log("Contract call failure:", err);
     }
   };
-
-  if ((!approvalStatus?.isApproved || true) && showApproveButton) {
+  if (showApproveButton) {
     return (
       <button
         onClick={() => {
@@ -111,7 +115,10 @@ const ApproveButton = ({
       </button>
     );
   }
-  return <div></div>;
+
+  return (
+    <div></div>
+  );
 };
 
 export default ApproveButton;
