@@ -45,7 +45,7 @@ const Approval = ({ setApprovalStatus, setApproveButtonVisibility }) => {
           setApproveButtonVisibility(false);
           setTimeout(() => {
             router.push(`${redirectUrl}/${address}`);
-          }, 2000);
+          }, 1000);
         } else {
           console.log('Allowance is not sufficient, showing the approve button');
           setApproveButtonVisibility(true); // Show the approve button when allowance is not sufficient
@@ -63,7 +63,7 @@ const Approval = ({ setApprovalStatus, setApproveButtonVisibility }) => {
     // if (contract && address && !isChecking && !approvalInitiated && !isApproved) {
     //   callApproval();
     // }
-  
+    callApproval();
     if (connectionStatus === "disconnected") {
       setApprovalStatus(false);
       setApprovalInitiated(false);
