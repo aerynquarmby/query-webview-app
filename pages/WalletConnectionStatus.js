@@ -15,7 +15,7 @@ const WalletConnectionStatus = ({ approvalStatus }) => {
       } else {
         setMessage('');
       }
-    }, 1000);
+    }, 100);
     return () => clearInterval(interval);
   }, [connectionStatus, approvalStatus]);
 
