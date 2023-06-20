@@ -6,7 +6,7 @@ const Spinner = () => {
     <div className={styles.spinnerOverlay}>
       <div className={styles.spinnerContainer}>
         <img 
-          src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" // Replace with your preferred spinner gif
+          src="https://media.giphy.com/media/XH8aAiiVNuTaPVBLKd/giphy.gif" // Replace with your preferred spinner gif
           alt="Loading..."
           className={styles.spinner}
         />
