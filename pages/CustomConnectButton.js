@@ -8,12 +8,16 @@ const CustomConnectButton = ({ buttonImage }) => {
   const connectionStatus = useConnectionStatus();
   const switchChain = useSwitchChain();
 
+  // Save and restore connection state
   useEffect(() => {
     const pageLoaded = localStorage.getItem("pageLoaded") === "true";
+    const connectionStatusStored = localStorage.getItem("connectionStatus");
 
-    if (pageLoaded && disconnect) {
+    if (pageLoaded && disconnect && connectionStatusStored !== "connected") {
       disconnect();
       localStorage.setItem("pageLoaded", "false");
+    } else if (connectionStatusStored === "connected") {
+      switchChain(Polygon.chainId);
     }
 
     if (connectionStatus === "connected") {
@@ -22,11 +26,14 @@ const CustomConnectButton = ({ buttonImage }) => {
   }, [connectionStatus, switchChain, disconnect]);
 
   useEffect(() => {
-    const setPageLoaded = () => localStorage.setItem("pageLoaded", "true");
+    const setPageLoaded = () => {
+      localStorage.setItem("pageLoaded", "true");
+      localStorage.setItem("connectionStatus", connectionStatus);
+    };
     window.addEventListener("beforeunload", setPageLoaded);
 
     return () => window.removeEventListener("beforeunload", setPageLoaded);
-  }, []);
+  }, [connectionStatus]);
 
   return (
     <div>

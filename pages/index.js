@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ThirdwebProvider, useAddress } from "@thirdweb-dev/react";
 import CustomConnectButton from "./CustomConnectButton";
 import styles from "./index.module.css";
@@ -10,6 +10,14 @@ const FullXF = () => {
   const [approvalStatus, setApprovalStatus] = useState({ isApproved: false, isError: false });
   const [showApproveButton, setShowApproveButton] = useState(true);
   const address = useAddress();
+
+  useEffect(() => {
+    if (address) {
+      console.log('Wallet connected with address: ', address);
+    } else {
+      console.log('Wallet not connected');
+    }
+  }, [address]);  // Re-run this whenever `address` changes
 
   return (
     <ThirdwebProvider activeChain="polygon">
