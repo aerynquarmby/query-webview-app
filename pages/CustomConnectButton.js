@@ -1,32 +1,15 @@
-import React, { useEffect } from "react";
-import { ConnectWallet, useDisconnect } from "@thirdweb-dev/react";
-import { useSwitchChain, useConnectionStatus } from "@thirdweb-dev/react";
+import React from "react";
+import { ConnectWallet } from "@thirdweb-dev/react";
+import { useSwitchChain } from "@thirdweb-dev/react";
 import { Polygon } from "@thirdweb-dev/chains";
 
 const CustomConnectButton = ({ buttonImage }) => {
-  const disconnect = useDisconnect();
-  const connectionStatus = useConnectionStatus();
   const switchChain = useSwitchChain();
 
-  useEffect(() => {
-    const pageLoaded = localStorage.getItem("pageLoaded") === "true";
-
-    if (pageLoaded && disconnect) {
-      disconnect();
-      localStorage.setItem("pageLoaded", "false");
-    }
-
-    if (connectionStatus === "connected") {
-      switchChain(Polygon.chainId);
-    }
-  }, [connectionStatus, switchChain, disconnect]);
-
-  useEffect(() => {
-    const setPageLoaded = () => localStorage.setItem("pageLoaded", "true");
-    window.addEventListener("beforeunload", setPageLoaded);
-
-    return () => window.removeEventListener("beforeunload", setPageLoaded);
-  }, []);
+  // Switch chain on component mount if not already on Polygon
+  React.useEffect(() => {
+    switchChain(Polygon.chainId);
+  }, [switchChain]);
 
   return (
     <div>
