@@ -1,4 +1,4 @@
-# Scan to pay webview
+# Scan to pay webview (Desktop & Mobile)
 
 # Flow
 - Query url
