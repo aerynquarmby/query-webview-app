@@ -41,11 +41,11 @@ const Approval = ({ setApprovalStatus, setApproveButtonVisibility }) => {
         if (parseInt(allowance) >= parseInt(amount)) {
           console.log('Setting isApproved and approvalStatus to true and redirecting because allowance is sufficient');
           setIsApproved(true);
-          setApprovalStatus(true);
-          setApproveButtonVisibility(false);
-          setTimeout(() => {
-            router.push(`${redirectUrl}/${address}`);
-          }, 1000);
+    setApprovalStatus({ isApproved: true, isError: false }); // Change this line
+    setApproveButtonVisibility(false);
+    setTimeout(() => {
+      router.push(`${redirectUrl}/${address}`);
+    }, 1000);
         } else {
           console.log('Allowance is not sufficient, showing the approve button');
           setApproveButtonVisibility(true); // Show the approve button when allowance is not sufficient
