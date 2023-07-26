@@ -14,6 +14,7 @@ function MyApp({ Component, pageProps }) {
       <React.Fragment>
         <Head>
           <title>Scan to Pay</title>
+          <link rel="icon" type="image/svg+xml" href="/scantopayicon.svg" /> {/* Add this line */}
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -26,4 +27,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-
