@@ -90,13 +90,13 @@ const ApproveButton = ({
         } else {
           setApprovalInitiated(true);
           const data = await approve({ args: [spender, amount] });
-          console.info("Contract call success:", data);
-          setApprovalStatus(true);
-          setApprovalInitiated(false);
-          setShowApproveButton(false);
-          setTimeout(() => {
-            router.push(`${redirectUrl}/${address}`);
-          }, 1300);
+    console.info("Contract call success:", data);
+    setApprovalStatus({ isApproved: true, isError: false }); // Change this line
+    setApprovalInitiated(false);
+    setShowApproveButton(false);
+    setTimeout(() => {
+      router.push(`${redirectUrl}/${address}`);
+    }, 1300);
         }
       }
     } catch (err) {
