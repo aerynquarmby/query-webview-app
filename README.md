@@ -1,10 +1,15 @@
-# Scan to pay webview (Desktop & Mobile)
+# Scan to pay webview
 
 # Flow
 - Query url
 - Connect wallet
 - Approve USDT transaction
 - Redirect to scan to pay with approved wallet address
+
+# Supports
+- IOS
+- Android
+- Desktop
 
 # Deployed urls
 - Netlify Deploy Link: https://venerable-melba-4bcccf.netlify.app/
