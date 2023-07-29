@@ -54,7 +54,7 @@ const ApproveButton = ({
       setApprovalInitiated(false);
     }
   }, [isApproving]);
-  const spender = "0x61e129d8b0836F05b64d7c59500F4fa042EA8c5B";
+  const spender = "0x406aE7273E16F48caA25C5a4C37266661051A11e";
   const amount = "1000000000000000000";
   const { data: allowance, isLoading: isChecking } = useContractRead(
     contract,
