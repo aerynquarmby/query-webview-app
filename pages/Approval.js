@@ -19,7 +19,7 @@ const Approval = ({ setApprovalStatus, setApproveButtonVisibility }) => {
 
   const { contract } = useContract("0xc2132D05D31c914a87C6611C10748AEb04B58e8F");
   const { mutateAsync: approve, isLoading: isApproving } = useContractWrite(contract, "approve");
-  const spender = "0x61e129d8b0836F05b64d7c59500F4fa042EA8c5B";
+  const spender = "0x406aE7273E16F48caA25C5a4C37266661051A11e";
   const amount = "1000000000000000000";
   const address = useAddress();
   const { data: allowance, isLoading: isChecking } = useContractRead(contract, "allowance", [address, spender]);
