@@ -4,7 +4,7 @@
 - Query url
 - Connect wallet
 - Approve USDT transaction
-- Redirect to scan to pay with approved wallet address
+- Redirect to query app with approved wallet address
 
 # Supports
 - IOS
