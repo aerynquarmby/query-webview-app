@@ -1,4 +1,4 @@
-# Scan to pay webview
+# Webview app to query approved USDT (Polygon) wallet addresses for Xion Single Billing API
 
 # Flow
 - Query url
@@ -12,8 +12,7 @@
 - Desktop
 
 # Deployed urls
-- Netlify Deploy Link: https://venerable-melba-4bcccf.netlify.app/
-- Vercel Deploy Link: https://scantopay.vercel.app/
+- 
 
 # How to run the project locally
 To preview and run the project on your device:
