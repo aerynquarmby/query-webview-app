@@ -13,8 +13,7 @@ function MyApp({ Component, pageProps }) {
     <ThirdwebProvider activeChain={activeChain}>
       <React.Fragment>
         <Head>
-          <title>Scan to Pay</title>
-          <link rel="icon" type="image/svg+xml" href="/scantopayicon.svg" /> {/* Add this line */}
+          <title>Query App</title>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
