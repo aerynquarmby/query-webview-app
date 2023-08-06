@@ -12,7 +12,7 @@
 - Desktop
 
 # Deployed urls
-- 
+- https://query-webview-app.vercel.app/
 
 # How to run the project locally
 To preview and run the project on your device:
