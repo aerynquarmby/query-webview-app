@@ -23,7 +23,6 @@ const FullXF = () => {
     <ThirdwebProvider activeChain="polygon">
       <div className={styles.fullXf}>
         <div className={styles.header}>
-          <img className={styles.headerimage} alt="" src="/Asset 81.svg" />
         </div>
         <div className={styles.connectedContainer}>
         <WalletConnectionStatus approvalStatus={approvalStatus} />
